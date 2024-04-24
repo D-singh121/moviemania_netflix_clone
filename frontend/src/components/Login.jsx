@@ -44,15 +44,15 @@ const Login = () => {
 					withCredentials: true
 
 				});
-				// if (loginRes.status === 200) {
-				// 	navigate("/home")
-				// } else {
-				// 	console.log('Login failed:', loginRes.data);
-				// }
+
 				if (loginRes.data.success) {
 					toast.success(loginRes.data.message, { position: "top-right" });
 				}
+				if (loginRes.status === 200) {
+					navigate("/browse")
+				}
 				console.log(loginRes)
+
 			} catch (error) {
 				toast.error(error.response.data.message, { position: 'top-right', })
 				console.log(error);
@@ -61,10 +61,20 @@ const Login = () => {
 			try {
 				const userRegisterData = { fullName, email, password } // getting from form ;
 				console.log(userRegisterData);
-				const registerRes = await axios.post(`${API_URL_POINT}/register`, userRegisterData);
+				const registerRes = await axios.post(`${API_URL_POINT}/register`, userRegisterData,
+					{
+						headers: {
+							'Content-Type': 'application/json'
+						},
+						withCredentials: true
+
+					});
 
 				if (registerRes.data.success) {
 					toast.success(registerRes.data.message, { position: 'top-right', });
+				}
+				if (registerRes.status === 200) {
+					setIsLogin(true)
 				}
 
 			} catch (error) {

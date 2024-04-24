@@ -80,7 +80,7 @@ const loginUser = async (req, res, next) => {
 	// generating the jwt token with userId , jwt secret and expiry time and sending in cookies with response ;
 	const token = await jwt.sign(tokendata, process.env.JWTSECRET, { expiresIn: "1d" });
 
-	return res.status(200).cookie("token", token ,{ httpOnly:true}).json({
+	return res.status(200).cookie("token", token, { httpOnly: true }).json({
 		message: `Welcome back ${isUserRegistered.fullName}`,
 		isUserRegistered,
 		success: true,
@@ -90,10 +90,25 @@ const loginUser = async (req, res, next) => {
 
 
 const logoutUser = (req, res) => {
-	return res.status(200).cookie("token", "", { expiresIn: new Date(Date.now()), httpOnly: true }).json({
-		message: "User logged out  successfully!",
-		success: true
-	});
+	// return res.status(200).cookie("token", "", { expiresIn: new Date(Date.now()), httpOnly: true }).json({
+	// 	message: "User logged out  successfully!",
+	// 	success: true
+	// });
+
+	if (req.cookies.token) {
+		// If the user is authenticated, clear the token
+		return res.status(200)
+			.clearCookie("token", { httpOnly: true })
+			.json({
+				message: "User logged out successfully!",
+				success: true
+			});
+	} else {
+		return res.status(401).json({
+			message: "User is already logged out",
+			success: false
+		});
+	}
 }
 
 

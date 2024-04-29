@@ -1,9 +1,12 @@
 import { useState } from "react"
 import { Header } from "./index.js"
-import { useNavigate } from "react-router-dom";
 import axios from 'axios'; // for api call
 import { API_URL_POINT } from "../utils/constants.js"
 import toast from "react-hot-toast";
+
+import { useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { setLoading, setUser } from "../redux_store/userSlice.js";
 
 import { IoEyeOff, IoEye } from "react-icons/io5";
 
@@ -13,15 +16,17 @@ const Login = () => {
 	const [fullName, setFullName] = useState("");
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
+	const navigate = useNavigate();
+	const dispatch = useDispatch();
 
 	const [showPassword, setShowPassword] = useState(false);// for password hide-unhide
 	const togglePassword = () => {
 		setShowPassword(!showPassword)
 	}
 
+	const isLoading = useSelector((store) => store.auth.isLoading)
 
 	// for redirecting
-	const navigate = useNavigate();
 
 	// handle login button
 	const loginHandler = () => {
@@ -32,8 +37,9 @@ const Login = () => {
 	// get the all form field value and proceed for db oprations;
 	const getInputData = async (e) => {
 		e.preventDefault(); // it will stop the default submit behaviour.//
-
+		//--------Login handler
 		if (isLogin) {
+			dispatch(setLoading(true));
 			try {
 				const userLoginData = { email, password }
 				// console.log(userLoginData);
@@ -48,19 +54,26 @@ const Login = () => {
 				if (loginRes.data.success) {
 					toast.success(loginRes.data.message, { position: "top-right" });
 				}
-				if (loginRes.status === 200) {
-					navigate("/browse")
-				}
+				dispatch(setUser(loginRes.data.user));
+				navigate("/browse");
+
 				console.log(loginRes)
+				console.log(loginRes.data.user);
+
 
 			} catch (error) {
 				toast.error(error.response.data.message, { position: 'top-right', })
 				console.log(error);
+			} finally {
+				dispatch(setLoading(false));
 			}
+
 		} else {
+			//--------- Register Handler.
+			dispatch(setLoading(true));
 			try {
 				const userRegisterData = { fullName, email, password } // getting from form ;
-				console.log(userRegisterData);
+				// console.log(userRegisterData);
 				const registerRes = await axios.post(`${API_URL_POINT}/register`, userRegisterData,
 					{
 						headers: {
@@ -73,13 +86,14 @@ const Login = () => {
 				if (registerRes.data.success) {
 					toast.success(registerRes.data.message, { position: 'top-right', });
 				}
-				if (registerRes.status === 200) {
-					setIsLogin(true)
-				}
+				setIsLogin(true) // directing to login page.
+
 
 			} catch (error) {
+				toast.error(error.response.data.message, { position: 'top-right', });
 				console.log(error);
-				toast.error(error.response.data.message, { position: 'top-right', })
+			} finally {
+				dispatch(setLoading(false));
 			}
 		}
 
@@ -146,7 +160,7 @@ const Login = () => {
 					<button
 						type='submit'
 						className='bg-red-600 mt-6 p-3 text-white rounded-sm font-medium'
-					>{isLogin ? "Login" : "SignUp"}
+					>{`${isLoading ? "Loading..." : (isLogin ? "Login" : "Signup")}`}
 					</button>
 
 					<p className='text-white mt-2'>{isLogin ? "New to Netflix?" : "Already have an account?"}<span onClick={loginHandler} className='ml-1 text-blue-900 font-medium cursor-pointer'>{isLogin ? "Signup" : "Login"}</span></p>

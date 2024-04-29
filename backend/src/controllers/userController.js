@@ -54,16 +54,16 @@ const loginUser = async (req, res, next) => {
 		})
 	}
 
-	const isUserRegistered = await User.findOne({ email }); // checking is User registered or not if not then redirect to register.
+	const user = await User.findOne({ email }); // checking is User registered or not if not then redirect to register.
 
-	if (!isUserRegistered) {
+	if (!user) {
 		return res.status(401).json({
 			message: "Invalid email or password!",
 			success: false
 		})
 	};
 
-	const isPasswordMatched = await bcrypt.compare(password, isUserRegistered.password); // matching the  password entered and hashed password from database.
+	const isPasswordMatched = await bcrypt.compare(password, user.password); // matching the  password entered and hashed password from database.
 
 	if (!isPasswordMatched) {
 		return res.status(401).json({
@@ -74,15 +74,15 @@ const loginUser = async (req, res, next) => {
 
 	// getting registered user Id fetched from database;
 	const tokendata = {
-		id: isUserRegistered._id
+		id: user._id
 	}
 
 	// generating the jwt token with userId , jwt secret and expiry time and sending in cookies with response ;
 	const token = await jwt.sign(tokendata, process.env.JWTSECRET, { expiresIn: "1d" });
 
 	return res.status(200).cookie("token", token, { httpOnly: true }).json({
-		message: `Welcome back ${isUserRegistered.fullName}`,
-		isUserRegistered,
+		message: `Welcome back ${user.fullName}`,
+		user,
 		success: true,
 	})
 
@@ -90,25 +90,26 @@ const loginUser = async (req, res, next) => {
 
 
 const logoutUser = (req, res) => {
-	// return res.status(200).cookie("token", "", { expiresIn: new Date(Date.now()), httpOnly: true }).json({
-	// 	message: "User logged out  successfully!",
-	// 	success: true
-	// });
-
-	if (req.cookies.token) {
-		// If the user is authenticated, clear the token
-		return res.status(200)
-			.clearCookie("token", { httpOnly: true })
-			.json({
-				message: "User logged out successfully!",
-				success: true
-			});
-	} else {
-		return res.status(401).json({
-			message: "User is already logged out",
-			success: false
+	if (!req.cookies.token) {
+		// User is already logged out, send informative response
+		return res.status(200).json({
+			success: false,
+			message: "User is already logged out."
 		});
 	}
+
+	return res.status(200).cookie("token", "", {
+		httpOnly: true,
+		expires: new Date(Date.now()),
+	}).json({
+		success: true,
+		message: "User logged out successfully!"
+	});
+
+	// return res.status(200).cookie("token", "", { expiresIn: new Date(Date.now()), httpOnly: true }).json({
+	// 	message: "User logged out successfully.",
+	// 	success: true,
+	// });
 }
 
 

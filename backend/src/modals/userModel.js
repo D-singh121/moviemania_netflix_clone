@@ -36,11 +36,5 @@ const userSchema = new mongoose.Schema({
 
 });
 
-// for forget-password
-// console.log(crypto.randomBytes(20).toString("hex"));
-// userSchema.methods.getResetToken = () => {
-// 	const resetToken = crypto.randomBytes(20).toLocaleString('hex');
-// 	return resetToken
-// }
 
 export const User = mongoose.model("User", userSchema);

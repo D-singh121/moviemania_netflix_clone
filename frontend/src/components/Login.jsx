@@ -57,8 +57,8 @@ const Login = () => {
 				dispatch(setUser(loginRes.data.user));
 				navigate("/browse");
 
-				console.log(loginRes)
-				console.log(loginRes.data.user);
+				// console.log(loginRes)
+				// console.log(loginRes.data.user);
 
 
 			} catch (error) {

@@ -6,37 +6,21 @@ import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "../redux_store/userSlice";
 import toast from "react-hot-toast";
 
+import { setSearchToggle } from "../redux_store/movieSlice";
+
 
 const Header = () => {
-  const user = useSelector((state) => state.auth.user);
-  // console.log(user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const user = useSelector((state) => state.auth.user);
+  // console.log(user);
+
+  const isSearchToggled = useSelector((state) => state.movies.isSearchToggle);
+
 
 
   const logoutHandler = async () => {
     console.log("clicked");
-    // try {
-    //   const logoutRes = await axios.get(`${API_URL_POINT}/logout`);
-    //   dispatch(setUser(null));
-    //   navigate("/");
-
-    //   if (logoutRes.data.success && logoutRes.status === 200) {
-    //     toast.success(logoutRes.data.message);
-    //   } else {
-    //     throw new Error("Unexpected response from server");
-    //   }
-
-    //   console.log(logoutRes);
-
-    // } catch (error) {
-    //   // console.log("Logout Error:", error);
-    //   let errorMessage = "An error occurred during logout";
-    //   if (error.response && error.response.data && error.response.data.message) {
-    //     errorMessage = error.response.data.message;
-    //   }
-    //   toast.error(errorMessage);
-    // }
 
     if (!user) {
       // If user is not present, do nothing or handle the case accordingly
@@ -58,17 +42,21 @@ const Header = () => {
       dispatch(setUser(null));
       navigate("/");
 
-      console.log(res);
+      // console.log(res);
     } catch (error) {
       console.log(error);
     }
   }
 
 
+  const toggleSearch = () => {
+    dispatch(setSearchToggle(true))
+  }
+
 
   return (
     <div className='absolute z-10 flex w-full items-center justify-between px-6 bg-gradient-to-b from-black'>
-      <Link to="/">
+      <Link to="/browse">
         <img className='w-48 mt-4 cursor-pointer' src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Netflix_2015_logo.svg/1198px-Netflix_2015_logo.svg.png" alt="netflix-logo" />
       </Link>
       {
@@ -79,7 +67,7 @@ const Header = () => {
             <h1 className='text-lg font-medium text-white'>{user.fullName}</h1>
             <div className='ml-4 '>
               <button onClick={() => logoutHandler()} className='bg-red-800 text-white px-4 py-2'>Logout</button>
-              <button className='bg-red-800 text-white px-4 py-2 ml-2'>Search Movie</button>
+              <button onClick={() => toggleSearch()} className='bg-red-800 text-white px-4 py-2 ml-2'>{isSearchToggled === true ? "All Movies " : "Search Movie"}</button>
             </div>
 
           </div>

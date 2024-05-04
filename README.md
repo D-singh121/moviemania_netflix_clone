@@ -1,5 +1,3 @@
-Absolutely! Here's the updated README incorporating the movie search functionality:
-
 **MovieMania: A Netflix-Inspired Movie App**
 
 **Project Overview**
@@ -58,28 +56,27 @@ MovieMania is a web application inspired by Netflix, allowing users to discover 
 - `/api/v1/user/forget-password`: POST - Initiate password reset
 - `/api/v1/user/resetPassword/:resetToken`: PUT - Reset password using token
 
-
 **API Endpoints for frontend side** (Replace with actual endpoint URLs)
-notice: we have used **TMDB**  to fetch the movies so  you will need these keys , just go to **TMDB** website and signup there. after successfull sign in you can genrate **API_KEY** and **API_ACCESS_TOKEN**;
-- TMDB_API_KEY='paste your tmdb api key here'
-- TMDB_API_READ_ACCESS_TOKEN='paste your access token here'
+notice: we have used **TMDB** to fetch the movies so you will need these keys , just go to **TMDB** website and signup there. after successfull sign in you can genrate **API_KEY** and **API_ACCESS_TOKEN**;
 
--- All frontend apis are present on folder **frontend/src/utils/constants.js**
+- `TMDB_API_KEY='paste your tmdb api key here'`
+- `TMDB_API_READ_ACCESS_TOKEN='paste your access token here'`
 
+**All frontend apis are present on folder **frontend/src/utils/constants.js\*\*
 
 **Don't forgot to change your database_name and other credentials**
-PORT=8000   // backend app running on port 8000 
-JWTSECRET="keep descen't string here"
-JWT_EXPIRE=7d  // token expires in 7days
-COOKIE_EXPIRE=5
 
-MONGODB_URL=mongodb+srv://<your_mongodb_user_name>:<your_mongodb_user_password>@cluster0.u4c45gt.mongodb.net
-DB_NAME=your database-name
-FRONTEND_URL=http://localhost:5173   
+- `PORT=8000  `: // backend app running on port 8000
+- `JWTSECRET="keep descen't string here"`
+- `JWT_EXPIRE=7d`: // token expires in 7days
+- `COOKIE_EXPIRE=5`
 
-ADMIN_EMAIL=your_admin-email-id
-ADMIN_EMAIL_PASSWORD= admin password
+- `MONGODB_URL=mongodb+srv://<your_mongodb_user_name>:<your_mongodb_user_password>@cluster0.u4c45gt.mongodb.net`
+- `DB_NAME=your database-name`
+- `FRONTEND_URL=http://localhost:5173`
 
+- `ADMIN_EMAIL=your_admin-email-id`
+- `ADMIN_EMAIL_PASSWORD= admin password`
 
 **Further Development**
 
@@ -93,7 +90,6 @@ This project serves as a solid foundation for a full-fledged movie streaming pla
 **Contribution**
 
 Feel free to contribute to this project by creating pull requests for bug fixes, feature enhancements, or code improvements.
-
 
 **Disclaimer**
 

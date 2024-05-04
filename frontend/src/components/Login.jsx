@@ -57,13 +57,9 @@ const Login = () => {
 				dispatch(setUser(loginRes.data.user));
 				navigate("/browse");
 
-				// console.log(loginRes)
-				// console.log(loginRes.data.user);
-
-
 			} catch (error) {
-				toast.error(error.response.data.message, { position: 'top-right', })
-				console.log(error);
+				toast.error(error.response.data.message || "An error occurred. Please try again.", { position: 'top-right', })
+				// console.log(error);
 			} finally {
 				dispatch(setLoading(false));
 			}
@@ -84,13 +80,13 @@ const Login = () => {
 					});
 
 				if (registerRes.data.success) {
-					toast.success(registerRes.data.message, { position: 'top-right', });
+					toast.success(registerRes.data.message , { position: 'top-right', });
 				}
 				setIsLogin(true) // directing to login page.
 
 
 			} catch (error) {
-				toast.error(error.response.data.message, { position: 'top-right', });
+				toast.error(error.response.data.message || "An error occurred. Please try again.", { position: 'top-right', });
 				console.log(error);
 			} finally {
 				dispatch(setLoading(false));

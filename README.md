@@ -1,3 +1,5 @@
+![MovieMania-poster](/Banner.png)
+
 **MovieMania: A Netflix-Inspired Movie App**
 
 **Project Overview**

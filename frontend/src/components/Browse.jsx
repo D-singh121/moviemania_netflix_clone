@@ -8,6 +8,7 @@ import { useNowPlayingMovies, usePopularMovies, useTopRatedMovies, useUpCommingM
 import MovieContainer from "./MovieContainer.jsx";
 
 import SearchMovie from "./SearchMovie.jsx";
+import Footer from "./Footer.jsx";
 
 
 const Browse = () => {
@@ -45,6 +46,7 @@ const Browse = () => {
 					</>
 				)
 			}
+			<Footer/>
 		</div>
 	)
 }

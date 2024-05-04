@@ -6,7 +6,7 @@ const MovieList = ({ title, movies, movieTitleName = false }) => {
 		<div className="px-8">
 			<h1 className={`${movieTitleName === true ? "text-3xl py-3 text-black" : "text-3xl py-3 text-white"}`}>{title}</h1>
 			<div className="flex overflow-x-auto no-scrollbar cursor-pointer ">
-				<div className="flex items-center">
+				<div className={`${movieTitleName === true ?"flex items-center mb-10" : "flex items-center"}`}>
 					{
 						movies?.map((movie) => {
 							// console.log(movie);

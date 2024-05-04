@@ -2,7 +2,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom"
 import { Login, Browse } from "./index.js";
 import ForgetPassword from "./ForgetPassword.jsx";
 import ResetPassword from "./ResetPassword.jsx";
-import HomePage from "../pages/HomePage.jsx";
+// import NoPage from "../pages/NoPage.jsx";
 
 const Body = () => {
 	const appRouter = createBrowserRouter([
@@ -23,8 +23,8 @@ const Body = () => {
 			element: <ResetPassword />
 		},
 		{
-			path: "/home",
-			element: <HomePage />
+			path: "*",
+			element: <Login />
 		}
 	]);
 

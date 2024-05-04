@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Header } from "./index.js"
 import axios from 'axios'; // for api call
 import { API_URL_POINT } from "../utils/constants.js"
@@ -26,7 +26,14 @@ const Login = () => {
 
 	const isLoading = useSelector((store) => store.auth.isLoading)
 
-	// for redirecting
+	// if there is already user present it means user is logged in.
+	const user = useSelector((state) => state.auth.user);
+	useEffect(() => {
+		if (user) {
+			navigate("/browse")
+		}
+	})
+
 
 	// handle login button
 	const loginHandler = () => {
@@ -80,7 +87,7 @@ const Login = () => {
 					});
 
 				if (registerRes.data.success) {
-					toast.success(registerRes.data.message , { position: 'top-right', });
+					toast.success(registerRes.data.message, { position: 'top-right', });
 				}
 				setIsLogin(true) // directing to login page.
 

@@ -62,13 +62,13 @@ notice: we have used **TMDB** to fetch the movies so you will need these keys , 
 - `TMDB_API_KEY='paste your tmdb api key here'`
 - `TMDB_API_READ_ACCESS_TOKEN='paste your access token here'`
 
-**All frontend apis are present on folder **frontend/src/utils/constants.js\*\*
+**All frontend apis are present on folder **frontend/src/utils/constants.js**
 
 **Don't forgot to change your database_name and other credentials**
 
-- `PORT=8000  `: // backend app running on port 8000
+- `PORT=8000  `:  backend app running on port 8000
 - `JWTSECRET="keep descen't string here"`
-- `JWT_EXPIRE=7d`: // token expires in 7days
+- `JWT_EXPIRE=7d`: token expires in 7days
 - `COOKIE_EXPIRE=5`
 
 - `MONGODB_URL=mongodb+srv://<your_mongodb_user_name>:<your_mongodb_user_password>@cluster0.u4c45gt.mongodb.net`

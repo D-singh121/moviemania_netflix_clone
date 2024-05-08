@@ -9,7 +9,7 @@ const app = express();
 
 app.use(cookieParser());
 const corsOptions = {
-	origin: process.env.FRONTEND_URL,
+	origin: 'https://moviemania-netflix-clone-git-main-devesh-choudharys-projects.vercel.app',
 	method: ["GET", "POST", "DELETE", "PUT", "PATCH"],
 	credentials: true
 }

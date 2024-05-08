@@ -9,7 +9,7 @@ const app = express();
 
 app.use(cookieParser());
 const corsOptions = {
-	origin: 'http://localhost:5173',
+	origin: process.env.FRONTEND_URL,
 	method: ["GET", "POST", "DELETE", "PUT", "PATCH"],
 	credentials: true
 }

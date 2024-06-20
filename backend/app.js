@@ -2,14 +2,15 @@ import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 
-import userRoutes from "../backend/src/routes/userRoutes.js"
+import userRoutes from "./src/routes/userRoutes.js"
 import bodyParser from "body-parser";
 
 const app = express();
 
 app.use(cookieParser());
 const corsOptions = {
-	origin: 'https://moviemania-netflix-clone-git-main-devesh-choudharys-projects.vercel.app',
+	// origin:"https://moviemania-netflix-clone-git-main-devesh-choudharys-projects.vercel.app",
+	origin: 'http://localhost:5173',
 	method: ["GET", "POST", "DELETE", "PUT", "PATCH"],
 	credentials: true
 }

@@ -1,5 +1,7 @@
 // BACKED_API_END_POINT
-export const API_URL_POINT = "https://moviemania-netflix-clone.onrender.com/api/v1/user"
+// export const API_URL_POINT = "https://moviemania-netflix-clone.onrender.com/api/v1/user"
+export const API_URL_POINT ="http://localhost:8080/api/v1/user"
+
 
 // This goes with api methods
 export const options = {

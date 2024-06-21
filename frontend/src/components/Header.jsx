@@ -56,7 +56,7 @@ const Header = () => {
 
   return (
     <div className='absolute z-10 flex w-full items-center justify-between px-6 bg-gradient-to-b from-black'>
-      <Link to="/">
+      <Link to="/browse">
         <img className='w-48 mt-4 cursor-pointer' src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Netflix_2015_logo.svg/1198px-Netflix_2015_logo.svg.png" alt="netflix-logo" />
       </Link>
       {

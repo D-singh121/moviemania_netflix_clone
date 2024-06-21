@@ -1,0 +1,59 @@
+version: "3.9" # Specify Docker Compose version
+
+networks:
+  moviemania:
+
+services:
+  # Frontend service
+  frontend:
+    build: ./frontend # Path to your frontend directory
+    container_name: moviemania_frontend
+    networks:
+      - moviemania
+    ports:
+      - "5173:5173" # Map container port 3000 to host port 3000
+    env_file:
+      - ./frontend/.env
+    volumes:
+      - ./frontend:/app # Mount your local frontend directory to /app in the container
+    depends_on:
+      - backend
+
+  # Backend service
+  backend:
+    build: ./backend # Path to your backend directory
+    container_name: moviemania_backend
+    networks:
+      - moviemania
+    ports:
+      - "8080:8080" # Map container port 8080 to host port 8080
+    volumes:
+      - ./backend:/app # Mount your local backend directory to /app in the container
+    env_file:
+      - ./backend/.env
+    environment:
+      - MONGO_URI:${MONGO_URI}
+      - DB_NAME:${DB_NAME}
+    depends_on:
+      - mongo
+
+  # MongoDB service (optional)
+  mongo:
+    container_name: movimania_mongoDB
+    image: mongo:latest
+    hostname: mongodb
+    restart: always
+    networks:
+      - moviemania
+    env_file:
+      - .env
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME:${MONGO_INITDB_ROOT_USERNAME}
+      - MONGO_INITDB_ROOT_PASSWORD:${MONGO_INITDB_ROOT_PASSWORD}
+    ports:
+      - "27017:27017" # Map container port 27017 to host port 27017
+    volumes:
+      - mongo-data:/data/db
+volumes:
+  # Optional persistent volume for MongoDB data
+  mongo-data:

@@ -1,11 +1,10 @@
 PORT=8080
-JWTSECRET=""
-JWT_EXPIRE=7d
-COOKIE_EXPIRE=5
-
-MONGODB_URL=
-DB_NAME=
-# FRONTEND_URL=
-FRONTEND_URL=
-ADMIN_EMAIL=
-ADMIN_EMAIL_PASSWORD=
+JWTSECRET="your-jwt-secret-key"
+JWT_EXPIRE=token-expiry-in-days
+COOKIE_EXPIRE=cookie-expiry-in-days
+MONGO_URI=mongodb+srv://root_username:password@cluster0.u4c45gt.mongodb.net
+DB_NAME=your-db-name
+# FRONTEND_URL=https://moviemania-netflix-clone-git-main-devesh-choudharys-projects.vercel.app
+FRONTEND_URL=http://localhost:5173
+ADMIN_EMAIL=admin-email-for-reset-password
+ADMIN_EMAIL_PASSWORD=admin-password-for-reset-password

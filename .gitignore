@@ -9,6 +9,11 @@ node_modules/
 .env.local
 .env.production
 
+# production k8s secrets
+frontend_secrets.yml
+backend_secrets.yml
+mongo_secrets.yml
+
 # Ignore backend environment file
 backend/.env
 backend/node_modules

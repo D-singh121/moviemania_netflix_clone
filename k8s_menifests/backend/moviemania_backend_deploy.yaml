@@ -1,0 +1,75 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: moviemania_backend
+  labels:
+    app: moviemania_backend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: moviemania_backend
+  template:
+    metadata:
+      labels:
+        app: moviemania_backend
+    spec:
+      containers:
+        - name: moviemania_backend
+          image: devesh121/moviemania_backend:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+          env:
+            - name: PORT
+              valueFrom:
+                secretKeyRef:
+                  name: backend-env-secret
+                  key: PORT
+            - name: JWTSECRET
+              valueFrom:
+                secretKeyRef:
+                  name: backend-env-secret
+                  key: JWTSECRET
+            - name: JWT_EXPIRE
+              valueFrom:
+                secretKeyRef:
+                  name: backend-env-secret
+                  key: JWT_EXPIRE
+            - name: COOKIE_EXPIRE
+              valueFrom:
+                secretKeyRef:
+                  name: backend-env-secret
+                  key: COOKIE_EXPIRE
+            - name: MONGO_URI
+              valueFrom:
+                secretKeyRef:
+                  name: backend-env-secret
+                  key: MONGO_URI
+            - name: DB_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: backend-env-secret
+                  key: DB_NAME
+            - name: FRONTEND_URL
+              valueFrom:
+                secretKeyRef:
+                  name: backend-env-secret
+                  key: FRONTEND_URL
+            - name: ADMIN_EMAIL
+              valueFrom:
+                secretKeyRef:
+                  name: backend-env-secret
+                  key: ADMIN_EMAIL
+            - name: ADMIN_EMAIL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: backend-env-secret
+                  key: ADMIN_EMAIL_PASSWORD
+          volumeMounts:
+            - mountPath: /app
+              name: backend-volume
+      volumes:
+        - name: backend-volume
+          hostPath:
+            path: ./backend

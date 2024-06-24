@@ -4,7 +4,7 @@ metadata:
   name: frontend-service
 spec:
   selector:
-    app: moviemania_frontend
+    app: moviemania-frontend
   ports:
     - protocol: TCP
       port: 5173

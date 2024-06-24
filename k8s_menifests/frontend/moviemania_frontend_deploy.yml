@@ -1,9 +1,9 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: moviemania_frontend
+  name: moviemania-frontend
   labels:
-    app: moviemania_frontend
+    app: moviemania-frontend
 spec:
   replicas: 2
   strategy:
@@ -13,14 +13,14 @@ spec:
       maxUnavailable: 25%
   selector:
     matchLabels:
-      app: moviemania_frontend  
+      app: moviemania-frontend  
   template:
     metadata:
       labels:
-        app: moviemania_frontend
+        app: moviemania-frontend
     spec:
       containers:
-        - name: moviemania_frontend
+        - name: moviemania-frontend
           image: devesh121/moviemania_frontend:latest
           imagePullPolicy: Always
           ports:

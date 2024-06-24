@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: moviemania_backend
+  name: moviemania-backend
   labels:
-    app: moviemania_backend
+    app: moviemania-backend
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: moviemania_backend
+      app: moviemania-backend
   template:
     metadata:
       labels:
-        app: moviemania_backend
+        app: moviemania-backend
     spec:
       containers:
-        - name: moviemania_backend
+        - name: moviemania-backend
           image: devesh121/moviemania_backend:latest
           imagePullPolicy: Always
           ports:

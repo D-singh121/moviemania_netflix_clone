@@ -5,7 +5,12 @@ metadata:
   labels:
     app: moviemania-backend
 spec:
-  replicas: 2
+  replicas: 1
+  strategy: 
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 25%
   selector:
     matchLabels:
       app: moviemania-backend
@@ -19,57 +24,57 @@ spec:
           image: devesh121/moviemania_backend:latest
           imagePullPolicy: Always
           ports:
-            - containerPort: 8080
+          - containerPort: 8080
           env:
             - name: PORT
               valueFrom:
                 secretKeyRef:
-                  name: backend-env-secret
+                  name: backend-sec
                   key: PORT
             - name: JWTSECRET
               valueFrom:
                 secretKeyRef:
-                  name: backend-env-secret
+                  name: backend-sec
                   key: JWTSECRET
             - name: JWT_EXPIRE
               valueFrom:
                 secretKeyRef:
-                  name: backend-env-secret
+                  name: backend-sec
                   key: JWT_EXPIRE
             - name: COOKIE_EXPIRE
               valueFrom:
                 secretKeyRef:
-                  name: backend-env-secret
+                  name: backend-sec
                   key: COOKIE_EXPIRE
             - name: MONGO_URI
               valueFrom:
                 secretKeyRef:
-                  name: backend-env-secret
+                  name: backend-sec
                   key: MONGO_URI
             - name: DB_NAME
               valueFrom:
                 secretKeyRef:
-                  name: backend-env-secret
+                  name: backend-sec
                   key: DB_NAME
             - name: FRONTEND_URL
               valueFrom:
                 secretKeyRef:
-                  name: backend-env-secret
+                  name: backend-sec
                   key: FRONTEND_URL
             - name: ADMIN_EMAIL
               valueFrom:
                 secretKeyRef:
-                  name: backend-env-secret
+                  name: backend-sec
                   key: ADMIN_EMAIL
             - name: ADMIN_EMAIL_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: backend-env-secret
+                  name: backend-sec
                   key: ADMIN_EMAIL_PASSWORD
-          volumeMounts:
-            - mountPath: /app
-              name: backend-volume
-      volumes:
-        - name: backend-volume
-          hostPath:
-            path: ./backend
+      #     volumeMounts:
+      #       - mountPath: /app
+      #         name: backend-volume
+      # volumes:
+      #   - name: backend-volume
+      #     hostPath:
+      #       path: ./backend

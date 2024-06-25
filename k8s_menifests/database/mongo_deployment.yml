@@ -1,16 +1,16 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: mongo-deployment
+  name: mongodb
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: mongo
+      app: mongodb
   template:
     metadata:
       labels:
-        app: mongo
+        app: mongodb
     spec:
       containers:
         - name: mongo
@@ -29,9 +29,9 @@ spec:
                   name: mongo-secret
                   key: MONGO_INITDB_ROOT_PASSWORD
           volumeMounts:
-            - name: mongo-data
+            - name: mongo-volume
               mountPath: /data/db
       volumes:
-        - name: mongo-data
+        - name: mongo-volume
           persistentVolumeClaim:
-            claimName: mongo-pvc
+            claimName: mongo-volume-claim

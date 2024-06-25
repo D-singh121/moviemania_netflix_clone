@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
         - name: moviemania-backend
-          image: devesh121/moviemania_backend:latest
+          image: devesh121/moviemania_backend:v3
           imagePullPolicy: Always
           ports:
           - containerPort: 8080
@@ -46,16 +46,11 @@ spec:
                 secretKeyRef:
                   name: backend-sec
                   key: COOKIE_EXPIRE
-            - name: MONGO_URI
+            - name: MONGO_URL
               valueFrom:
                 secretKeyRef:
                   name: backend-sec
-                  key: MONGO_URI
-            - name: DB_NAME
-              valueFrom:
-                secretKeyRef:
-                  name: backend-sec
-                  key: DB_NAME
+                  key: MONGO_URL
             - name: FRONTEND_URL
               valueFrom:
                 secretKeyRef:
@@ -71,10 +66,10 @@ spec:
                 secretKeyRef:
                   name: backend-sec
                   key: ADMIN_EMAIL_PASSWORD
-      #     volumeMounts:
-      #       - mountPath: /app
-      #         name: backend-volume
-      # volumes:
-      #   - name: backend-volume
-      #     hostPath:
-      #       path: ./backend
+          volumeMounts:
+            - mountPath: /app
+              name: backend-volume
+      volumes:
+        - name: backend-volume
+          hostPath:
+            path: ./backend

@@ -7,7 +7,7 @@ services:
   # Frontend service
   frontend:
     # build: ./frontend                          # Path to your frontend directory for initial build.
-    image: devesh121/moviemania_frontend:v2 # using already build frontend image from docker hub.
+    image: devesh121/moviemania_frontend:latest # using already build frontend image from docker hub.
     container_name: moviemania_frontend
     networks:
       - moviemania
@@ -23,7 +23,7 @@ services:
   # Backend service
   backend:
     # build: ./backend                            # Path to your backend directory for initial image build.
-    image:  devesh121/moviemania_backend:v2   # using already build backend image from docker hub.
+    image:  devesh121/moviemania_backend:latest  # using already build backend image from docker hub.
     container_name: moviemania_backend
     networks:
       - moviemania

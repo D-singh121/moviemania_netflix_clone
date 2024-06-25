@@ -1,61 +1,49 @@
-version: "3.9" # Specify Docker Compose version
-
-networks:
-  moviemania:     # If we not create network docker will create default bridge network.
+version: "3.9"
 
 services:
-  # Frontend service
-  frontend:
-    # build: ./frontend                          # Path to your frontend directory for initial build.
-    image: devesh121/moviemania_frontend:latest # using already build frontend image from docker hub.
-    container_name: moviemania_frontend
-    networks:
-      - moviemania
+  # Server service (using devesh121 local tag)
+  server:
+    image: devesh121/moviemania_backend:v3
+    container_name: backend
     ports:
-      - "5173:5173"     # Map container port 3000 to host port 3000
-    env_file:
-      - ./frontend/.env
-    volumes:
-      - ./frontend:/app # Mount your local frontend directory to /app in the container
-    depends_on:
-      - backend
-
-  # Backend service
-  backend:
-    # build: ./backend                            # Path to your backend directory for initial image build.
-    image:  devesh121/moviemania_backend:latest  # using already build backend image from docker hub.
-    container_name: moviemania_backend
-    networks:
-      - moviemania
-    ports:
-      - "8080:8080"    # Map container port 8080 to host port 8080
-    volumes:
-      - ./backend:/app # Mount your local backend directory to /app in the container
-    env_file:
-      - ./backend/.env
+      - "8080:8080" # Adjust port if needed
+    env_file: .env
     environment:
-      - MONGO_URI:${MONGO_URI}
-      - DB_NAME:${DB_NAME}
+      - PORT=$PORT # From separate source
+    networks:
+      - moviemania
     depends_on:
-      - mongo
+      - mongodb
 
-  # MongoDB service (optional)
-  mongo:
-    container_name: movimania_mongoDB
+  # Client service
+  client:
+    image: devesh121/moviemania_frontend:v3
+    container_name: frontend
+    env_file: ./frontend/.env
+    ports:
+      - "5173:5173" # Adjust port if needed
+    networks:
+      - moviemania
+    depends_on:
+      - server
+
+  # Database service
+  mongodb:
     image: mongo:latest
-    hostname: mongodb
-    restart: always
+    container_name: mongodb_server
+    env_file: .env
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=$MONGODB_USER
+      - MONGO_INITDB_ROOT_PASSWORD=$MONGODB_PASSWORD
+    ports:
+      - "27018:27018"
     networks:
       - moviemania
-    env_file:
-      - .env
-    environment:
-      - MONGO_INITDB_ROOT_USERNAME:${MONGO_INITDB_ROOT_USERNAME}
-      - MONGO_INITDB_ROOT_PASSWORD:${MONGO_INITDB_ROOT_PASSWORD}
-    ports:
-      - "27017:27017" # Map container port 27017 to host port 27017
     volumes:
-      - mongo-data:/data/db
+      - ./../mydata:/data/db # Adjust path if needed
+
+# Volumes definition (already defined correctly)
 volumes:
-  # Optional persistent volume for MongoDB data
-  mongo-data:
+  mydata:
+networks:
+  moviemania:

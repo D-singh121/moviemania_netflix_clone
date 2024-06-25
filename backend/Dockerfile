@@ -14,5 +14,7 @@ RUN npm install
 # Copying remaining project files into container
 COPY . .
 
+EXPOSE 8080
+
 # Start the Vite development server
 CMD ["npm","start"]

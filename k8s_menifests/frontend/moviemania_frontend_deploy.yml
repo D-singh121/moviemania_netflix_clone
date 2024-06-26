@@ -2,27 +2,23 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: moviemania-frontend
+  namespace: moviemania
   labels:
     app: moviemania-frontend
 spec:
-  replicas: 2
-  strategy:
-    type: RollingUpdate
-    rollingUpdate:
-      maxSurge: 1
-      maxUnavailable: 25%
+  replicas: 1
   selector:
     matchLabels:
       app: moviemania-frontend  
   template:
     metadata:
+      name: moviemania-frontend
       labels:
         app: moviemania-frontend
     spec:
       containers:
         - name: moviemania-frontend
-          image: devesh121/moviemania_frontend:latest
-          imagePullPolicy: Always
+          image: devesh121/moviemania_frontend:v3
           ports:
             - containerPort: 5173
           env:
@@ -36,10 +32,11 @@ spec:
                 secretKeyRef:
                   name: frontend-secret
                   key: VITE_TMDB_API_READ_ACCESS_TOKEN
-          volumeMounts:
-            - mountPath: /app
-              name: frontend-volume
-      volumes:
-        - name: frontend-volume
-          hostPath:
-            path: ./frontend
+
+      #     volumeMounts:
+      #       - mountPath: /app
+      #         name: frontend-volume
+      # volumes:
+      #   - name: frontend-volume
+      #     hostPath:
+      #       path: ./frontend

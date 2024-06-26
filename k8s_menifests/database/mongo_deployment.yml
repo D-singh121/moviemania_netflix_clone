@@ -2,6 +2,9 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: mongodb
+  namespace: moviemania
+  labels:
+    app: mongodb
 spec:
   replicas: 1
   selector:
@@ -9,6 +12,7 @@ spec:
       app: mongodb
   template:
     metadata:
+      name: mongodb
       labels:
         app: mongodb
     spec:
@@ -16,7 +20,7 @@ spec:
         - name: mongo
           image: mongo:latest
           ports:
-            - containerPort: 27017
+            - containerPort: 27018
           env:
             - name: MONGO_INITDB_ROOT_USERNAME
               valueFrom:

@@ -2,29 +2,26 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: moviemania-backend
+  namespace: moviemania
   labels:
     app: moviemania-backend
 spec:
   replicas: 1
-  strategy: 
-    type: RollingUpdate
-    rollingUpdate:
-      maxSurge: 1
-      maxUnavailable: 25%
   selector:
     matchLabels:
       app: moviemania-backend
   template:
     metadata:
+      name: moviemania-backend
       labels:
         app: moviemania-backend
     spec:
       containers:
         - name: moviemania-backend
           image: devesh121/moviemania_backend:v3
-          imagePullPolicy: Always
           ports:
           - containerPort: 8080
+          imagePullPolicy: Always
           env:
             - name: PORT
               valueFrom:
@@ -66,10 +63,11 @@ spec:
                 secretKeyRef:
                   name: backend-sec
                   key: ADMIN_EMAIL_PASSWORD
-          volumeMounts:
-            - mountPath: /app
-              name: backend-volume
-      volumes:
-        - name: backend-volume
-          hostPath:
-            path: ./backend
+
+      #     volumeMounts:
+      #       - mountPath: /app
+      #         name: backend-volume
+      # volumes:
+      #   - name: backend-volume
+      #     hostPath:
+      #       path: ./backend

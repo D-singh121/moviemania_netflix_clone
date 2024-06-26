@@ -1,9 +1,13 @@
 version: "3.9"
 
+networks:
+  moviemania:
+
 services:
   # Server service (using devesh121 local tag)
   server:
-    image: devesh121/moviemania_backend:v3
+    # build: ./backend
+    image: devesh121/moviemania_backend:v4
     container_name: backend
     ports:
       - "8080:8080" # Adjust port if needed
@@ -12,12 +16,13 @@ services:
       - PORT=$PORT # From separate source
     networks:
       - moviemania
-    depends_on:
-      - mongodb
+    # depends_on:
+    #   - mongodb
 
   # Client service
   client:
-    image: devesh121/moviemania_frontend:v3
+    # build: ./frontend
+    image: devesh121/moviemania_frontend:v4
     container_name: frontend
     env_file: ./frontend/.env
     ports:
@@ -27,7 +32,7 @@ services:
     depends_on:
       - server
 
-  # Database service
+  # Database service : This is optional stage because we are using the mongo Atlas database through connection string.
   mongodb:
     image: mongo:latest
     container_name: mongodb_server
@@ -45,5 +50,4 @@ services:
 # Volumes definition (already defined correctly)
 volumes:
   mydata:
-networks:
-  moviemania:
+

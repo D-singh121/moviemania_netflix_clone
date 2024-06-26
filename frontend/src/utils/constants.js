@@ -1,6 +1,7 @@
 // BACKED_API_END_POINT
 // export const API_URL_POINT = "https://moviemania-netflix-clone.onrender.com/api/v1/user"
-export const API_URL_POINT ="http://localhost:8080/api/v1/user"
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL
+export const API_URL_POINT =`${BACKEND_URL}/api/v1/user`
 
 
 // This goes with api methods

@@ -1,4 +1,5 @@
 import express from "express";
+import dotenv from 'dotenv';
 import cors from "cors";
 import cookieParser from "cookie-parser";
 
@@ -7,10 +8,15 @@ import bodyParser from "body-parser";
 
 const app = express();
 
+
 app.use(cookieParser());
+
+dotenv.config({ path: ".env" });
+const FRONTEND_URL = process.env.FRONTEND_URL
+
+
 const corsOptions = {
-	// origin:"https://moviemania-netflix-clone-git-main-devesh-choudharys-projects.vercel.app",
-	origin: 'http://localhost:5173',
+	origin: FRONTEND_URL ? FRONTEND_URL : "http://localhost:5173",
 	method: ["GET", "POST", "DELETE", "PUT", "PATCH"],
 	credentials: true
 }

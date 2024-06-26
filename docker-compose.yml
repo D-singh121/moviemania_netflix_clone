@@ -7,7 +7,7 @@ services:
   # Server service (using devesh121 local tag)
   server:
     # build: ./backend
-    image: devesh121/moviemania_backend:v4
+    image: devesh121/moviemania_backend:v4.4
     container_name: backend
     ports:
       - "8080:8080" # Adjust port if needed

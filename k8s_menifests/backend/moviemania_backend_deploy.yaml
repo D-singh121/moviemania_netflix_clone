@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: moviemania-backend
-          image: devesh121/moviemania_backend:v3
+          image: devesh121/moviemania_backend:v4
           ports:
           - containerPort: 8080
           imagePullPolicy: Always

@@ -2,7 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: mongodb
-  namespace: moviemania
   labels:
     app: mongodb
 spec:
@@ -17,21 +16,10 @@ spec:
         app: mongodb
     spec:
       containers:
-        - name: mongo
+        - name: mongodb
           image: mongo:latest
           ports:
-            - containerPort: 27018
-          env:
-            - name: MONGO_INITDB_ROOT_USERNAME
-              valueFrom:
-                secretKeyRef:
-                  name: mongo-secret
-                  key: MONGO_INITDB_ROOT_USERNAME
-            - name: MONGO_INITDB_ROOT_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: mongo-secret
-                  key: MONGO_INITDB_ROOT_PASSWORD
+            - containerPort: 27017
           volumeMounts:
             - name: mongo-volume
               mountPath: /data/db

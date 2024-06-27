@@ -2,7 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: moviemania-backend
-  namespace: moviemania
   labels:
     app: moviemania-backend
 spec:
@@ -47,7 +46,7 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: backend-sec
-                  key: MONGO_URL
+                  key: mongo-url
             - name: FRONTEND_URL
               valueFrom:
                 secretKeyRef:

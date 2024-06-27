@@ -2,12 +2,12 @@ apiVersion: v1
 kind: Service
 metadata:
   name: mongodb-service
-  namespace: moviemania
+  labels:
+    app: mongodb
 spec:
   selector:
     app: mongodb
   ports:
-    - port: 27018
-      targetPort: 27018
+    - port: 27017
+      targetPort: 27017
       protocol: TCP
- 
